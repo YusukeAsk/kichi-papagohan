@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>パパごはん | kichi.page</title>
+<style>
+  :root {
+    --bg: #f6f1e7;
+    --ink: #3b3226;
+    --sub: #8a7a63;
+    --line: #d9ccb6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1f1b16; --ink: #ece3d3; --sub: #a8987f; --line: #3d342a; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    line-height: 1.9;
+    text-align: center;
+  }
+  .bowl { font-size: 48px; margin-bottom: 24px; }
+  h1 { font-size: 28px; font-weight: 500; letter-spacing: 0.2em; }
+  p { margin-top: 16px; color: var(--sub); font-size: 15px; }
+  hr { width: 40px; margin: 32px auto; border: 0; border-top: 1px solid var(--line); }
+  a { color: var(--sub); font-size: 13px; text-decoration: none; letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+  <main>
+    <div class="bowl">🍲</div>
+    <h1>パパごはん</h1>
+    <p>週末にこしらえた料理を、<br>ひと皿ずつ置いていく場所です。</p>
+    <p>ただいま、支度中。</p>
+    <hr>
+    <a href="https://kichi.page">kichi.page</a>
+  </main>
+</body>
+</html>
