@@ -41,7 +41,7 @@
 
   /* 見出し */
   header { text-align: center; }
-  .apron { width: min(260px, 72vw); height: auto; display: block; margin: 0 auto 20px; }
+  .apron { width: min(320px, 86vw); height: auto; display: block; margin: 0 auto 20px; }
   .title { display: inline-flex; align-items: center; gap: 12px; }
   h1 { font-size: 30px; font-weight: 500; letter-spacing: 0.22em; }
   .seal {
@@ -62,7 +62,7 @@
   h2::before, h2::after { content: ""; flex: 1; border-top: 1px solid var(--line); }
   .list { list-style: none; margin-top: 20px; display: grid; gap: 12px; }
   .list a, .list .soon {
-    display: grid; grid-template-columns: 64px 1fr; gap: 4px 16px; align-items: baseline;
+    display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; align-items: baseline;
     padding: 16px 18px;
     background: var(--card);
     border: 1px solid var(--line);
@@ -73,12 +73,11 @@
   }
   .list a:hover { transform: translateY(-2px); border-color: var(--ai); }
   .date { grid-row: span 2; color: var(--sub); font-size: 13px; letter-spacing: 0.05em; }
-  .dish { font-size: 17px; }
-  .note { color: var(--sub); font-size: 13px; }
+  .date small { display: block; font-size: 11px; line-height: 1.4; opacity: .8; }
+  .dish { font-size: 16px; line-height: 1.55; }
+  .note { color: var(--sub); font-size: 13px; line-height: 1.6; }
   .list .soon { border-left-color: var(--line); color: var(--sub); }
 
-  footer { margin-top: 64px; text-align: center; }
-  footer a { color: var(--sub); font-size: 13px; letter-spacing: 0.12em; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -86,43 +85,43 @@
 
   <header>
     <!-- 藍色のショートエプロン -->
-    <svg class="apron" viewBox="0 0 320 200" role="img" aria-label="藍色のショートエプロン">
-      <!-- ひも -->
-      <path d="M44 70 C18 62 14 40 56 37 L196 31" fill="none" stroke="var(--ai)" stroke-width="5" stroke-linecap="round"/>
-      <path d="M276 70 C302 62 306 46 266 44 L104 46" fill="none" stroke="var(--ai)" stroke-width="5" stroke-linecap="round"/>
+    <svg class="apron" viewBox="0 0 400 160" role="img" aria-label="藍色のショートエプロン">
+      <!-- ひも（左右に横へのばす） -->
+      <path d="M82 45 C62 43 42 47 10 50" fill="none" stroke="var(--ai)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M318 45 C338 43 358 47 390 50" fill="none" stroke="var(--ai)" stroke-width="5" stroke-linecap="round"/>
       <!-- 本体 -->
-      <path d="M40 66 L280 66 L288 152 Q160 176 32 152 Z" fill="var(--ai)"/>
+      <path d="M80 40 L320 40 L328 126 Q200 150 72 126 Z" fill="var(--ai)"/>
       <!-- 腰帯 -->
-      <path d="M40 66 L280 66 L281 77 L39 77 Z" fill="var(--ai-dark)"/>
+      <path d="M80 40 L320 40 L321 51 L79 51 Z" fill="var(--ai-dark)"/>
       <!-- ベルト通し -->
       <g fill="var(--ai-dark)">
-        <rect x="72" y="61" width="6" height="18" rx="1"/>
-        <rect x="132" y="61" width="6" height="18" rx="1"/>
-        <rect x="186" y="61" width="6" height="18" rx="1"/>
-        <rect x="244" y="61" width="6" height="18" rx="1"/>
+        <rect x="108" y="36" width="6" height="18" rx="1"/>
+        <rect x="168" y="36" width="6" height="18" rx="1"/>
+        <rect x="226" y="36" width="6" height="18" rx="1"/>
+        <rect x="286" y="36" width="6" height="18" rx="1"/>
       </g>
       <!-- 刺し子風のステッチ -->
       <g fill="none" stroke="var(--stitch)" stroke-width="1.4" stroke-dasharray="5 4" stroke-linecap="round" opacity=".75">
-        <path d="M38 147 Q160 170 282 147"/>
-        <path d="M44 82 L276 82"/>
+        <path d="M78 121 Q200 144 322 121"/>
+        <path d="M84 56 L316 56"/>
       </g>
-      <!-- 中央の段ポケット -->
-      <g fill="none" stroke="var(--ai-dark)" stroke-width="2">
-        <path d="M108 96 L108 160"/>
-        <path d="M212 96 L212 160"/>
-        <path d="M108 96 L212 96"/>
-        <path d="M108 118 L212 118"/>
-        <path d="M108 140 L212 140"/>
+      <!-- 左右のポケット -->
+      <g fill="var(--ai)" stroke="var(--ai-dark)" stroke-width="2">
+        <path d="M104 70 L170 70 L170 110 Q170 116 164 116 L110 116 Q104 116 104 110 Z"/>
+        <path d="M230 70 L296 70 L296 110 Q296 116 290 116 L236 116 Q230 116 230 110 Z"/>
+      </g>
+      <g fill="none" stroke="var(--ai-dark)" stroke-width="3">
+        <path d="M104 71 L170 71"/>
+        <path d="M230 71 L296 71"/>
       </g>
       <g fill="none" stroke="var(--stitch)" stroke-width="1.1" stroke-dasharray="3 3" opacity=".6">
-        <path d="M111 99 L209 99"/>
-        <path d="M111 121 L209 121"/>
-        <path d="M111 143 L209 143"/>
+        <path d="M108 76 L166 76"/>
+        <path d="M234 76 L292 76"/>
+        <path d="M108 78 L108 109 Q108 112 111 112 L163 112 Q166 112 166 109 L166 78"/>
+        <path d="M234 78 L234 109 Q234 112 237 112 L289 112 Q292 112 292 109 L292 78"/>
       </g>
-      <!-- ペン差し -->
-      <rect x="114" y="84" width="38" height="8" rx="1.5" fill="none" stroke="var(--ai-dark)" stroke-width="2"/>
       <!-- 小さなタグ -->
-      <rect x="226" y="86" width="5" height="11" rx="1" fill="var(--stitch)" opacity=".85"/>
+      <rect x="198" y="60" width="5" height="11" rx="1" fill="var(--stitch)" opacity=".85"/>
     </svg>
 
     <div class="title">
@@ -136,28 +135,39 @@
     <h2>献立帳</h2>
     <ul class="list">
       <!--
-        料理を増やすときは、この形の行を一番上に足していきます。
+        料理を増やすときは、この形の行を一番上に足していきます（新しいものが上）。
         <li>
-          <a href="recipes/chicken-over-rice.html">
-            <span class="date">11.29</span>
-            <span class="dish">チキンオーバーライス</span>
-            <span class="note">野菜そぼろが決め手の、週末のごちそう</span>
+          <a href="recipes/ファイル名.html">
+            <span class="date"><small>2026</small>11.29</span>
+            <span class="dish">料理の名前</span>
+            <span class="note">ひとことの説明</span>
           </a>
         </li>
       -->
       <li>
-        <div class="soon">
-          <span class="date">—</span>
-          <span class="dish">最初のひと皿</span>
-          <span class="note">ただいま、支度中。</span>
-        </div>
+        <a href="recipes/miso-teriyaki-don.html">
+          <span class="date"><small>2026</small>11.14</span>
+          <span class="dish">鶏ももの塩麹味噌照り焼き丼</span>
+          <span class="note">塩麹でやわらかく、甘い味噌だれで</span>
+        </a>
+      </li>
+      <li>
+        <a href="recipes/renkon-tsumire-don.html">
+          <span class="date"><small>2026</small>11.08</span>
+          <span class="dish">シャキシャキれんこんとコーンの鶏つみれ丼</span>
+          <span class="note">豆腐入りでふんわり。タレはあとがけで</span>
+        </a>
+      </li>
+      <li>
+        <a href="recipes/chicken-over-rice.html">
+          <span class="date"><small>2026</small>07.21</span>
+          <span class="dish">チキンオーバーライス</span>
+          <span class="note">細かく刻んだ野菜そぼろが決め手</span>
+        </a>
       </li>
     </ul>
   </section>
 
-  <footer>
-    <a href="https://kichi.page">kichi.page</a>
-  </footer>
 
 </div>
 </body>

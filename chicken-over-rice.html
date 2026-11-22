@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>チキンオーバーライス</title>
+<style>
+  :root {
+    --bg: #faf6ef;
+    --card: #ffffff;
+    --ink: #3a2f28;
+    --sub: #7a6a5e;
+    --accent: #c27a1a;
+    --accent-soft: #fbecd6;
+    --rust: #b4432d;
+    --rust-soft: #f6e1dc;
+    --green: #5a8a4a;
+    --green-soft: #e8f1e3;
+    --line: #eadfd2;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+
+  header { text-align: center; margin-bottom: 28px; }
+  .tag {
+    display: inline-block; font-size: 12px; letter-spacing: .1em;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 4px 12px; border-radius: 99px; margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(22px, 5vw, 30px); line-height: 1.4; margin: 0 0 14px; }
+  .lead { color: var(--sub); margin: 0; font-size: 15px; }
+
+  .texture {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin: 24px 0 8px;
+  }
+  .texture div {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 12px 8px; text-align: center; font-size: 13px; color: var(--sub);
+  }
+  .texture b { display: block; font-size: 15px; color: var(--ink); }
+
+  section {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 22px 22px 18px; margin-top: 20px;
+  }
+  h2 {
+    font-size: 18px; margin: 0 0 14px; display: flex; align-items: center; gap: 8px;
+  }
+  h2::before {
+    content: ""; width: 6px; height: 20px; border-radius: 3px; background: var(--accent);
+  }
+  h3 { font-size: 14px; color: var(--sub); margin: 18px 0 6px; font-weight: 600; }
+
+  /* このレシピの肝 */
+  .key { border-left: 4px solid var(--rust); }
+  .key h2 { color: var(--rust); }
+  .key h2::before { background: var(--rust); }
+  .key p { margin: 0; }
+  .dots { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .dots span { width: 9px; height: 9px; border-radius: 2px; background: #6b7a3a; opacity: .85; }
+  .dots span:nth-child(3n) { background: var(--accent); }
+  .dots span:nth-child(5n) { background: var(--rust); }
+
+  /* 人数 */
+  .servings {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--accent-soft); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px;
+  }
+  .servings span { font-size: 14px; }
+  .stepper { display: flex; align-items: center; gap: 10px; }
+  .stepper button {
+    width: 34px; height: 34px; border-radius: 50%; border: none;
+    background: var(--accent); color: #fff; font-size: 18px; cursor: pointer;
+  }
+  .stepper button:disabled { opacity: .35; cursor: default; }
+  .stepper output { font-weight: 700; min-width: 3.5em; text-align: center; }
+  .note-small { font-size: 12px; color: var(--sub); margin: 0 0 6px; }
+
+  /* 材料 */
+  ul.ing { list-style: none; margin: 0; padding: 0; }
+  ul.ing li {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 2px; border-bottom: 1px dashed var(--line); cursor: pointer;
+    user-select: none;
+  }
+  ul.ing li:last-child { border-bottom: none; }
+  ul.ing input { width: 18px; height: 18px; accent-color: var(--green); flex-shrink: 0; }
+  ul.ing .name { flex: 1; }
+  ul.ing .name small { color: var(--sub); font-size: 12px; }
+  ul.ing .amt { font-weight: 700; white-space: nowrap; }
+  ul.ing li.done .name, ul.ing li.done .amt { color: #b5a99d; text-decoration: line-through; }
+
+  /* 手順 */
+  ol.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; }
+  ol.steps li {
+    counter-increment: s; position: relative;
+    padding: 4px 0 18px 46px;
+  }
+  ol.steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 4px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  ol.steps li.checked::before { background: #9c9188; content: "✓"; }
+  ol.steps .ttl { font-weight: 700; display: block; cursor: pointer; }
+  ol.steps p { margin: 4px 0 0; font-size: 15px; }
+  .q { font-weight: 700; color: var(--accent); }
+  .qk { font-weight: 700; color: var(--green); }
+  .kid-box {
+    margin-top: 6px; background: var(--green-soft); border-radius: 10px;
+    padding: 8px 12px; font-size: 14px;
+  }
+  .kid-box b { color: var(--green); }
+  .timer {
+    margin-top: 8px; display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--accent); color: var(--accent); background: #fff;
+    border-radius: 99px; padding: 4px 14px; font-size: 14px; cursor: pointer;
+    font-family: inherit;
+  }
+  .timer.running { background: var(--accent); color: #fff; }
+  .timer.finished { background: var(--green); border-color: var(--green); color: #fff; }
+
+
+  /* 子ども向けポイント */
+  .kids { background: var(--green-soft); border-color: #cfe1c6; }
+  .kids h2::before { background: var(--green); }
+  .point { margin: 0 0 14px; }
+  .point:last-child { margin-bottom: 0; }
+  .point b { display: block; }
+
+
+  footer { text-align: center; color: var(--sub); font-size: 12px; margin-top: 32px; }
+
+  @media print {
+    body { background: #fff; }
+    .stepper button, .timer { display: none; }
+    section { break-inside: avoid; }
+  }
+
+  /* パパごはんへの帰り道 */
+  .back { display: inline-block; margin-bottom: 20px; color: var(--sub); font-size: 13px; text-decoration: none; letter-spacing: .05em; }
+  .back:hover { color: var(--ink); }
+  footer .back { margin: 12px 0 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← パパごはん</a>
+
+  <header>
+    <div class="tag">スパイシー ・ 漬け込み1〜2時間＋調理30分</div>
+    <h1>チキンオーバーライス</h1>
+    <p class="lead">ヨーグルトとスパイスに漬けた鶏肉を、<strong>細かく刻んだ野菜のそぼろ</strong>と炒め合わせます。<br>
+    ご飯とサラダに乗せて、ヨーグルトソースをかけて食べます。<br>
+    <strong>チキンの代わりにポーク（豚肉）に変えてもおいしく作れます。</strong></p>
+    <div class="texture">
+      <div><b>スパイスチキン</b>ヨーグルト漬け</div>
+      <div><b>そぼろ野菜</b>ゴロゴロ食感</div>
+      <div><b>白いソース</b>まろやかに</div>
+    </div>
+  </header>
+
+  <section class="key">
+    <h2>このレシピの肝</h2>
+    <p>にんにく・玉ねぎ・人参・セロリを<strong>徹底的に小さく刻んで「そぼろ状」</strong>にします。ゴロゴロした食感を残しつつ食べやすくなり、ソースと絡んだ野菜そのものがおいしくなります。</p>
+    <div class="dots">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>材料</h2>
+    <div class="servings">
+      <span>人数</span>
+      <div class="stepper">
+        <button type="button" id="minus" aria-label="減らす">−</button>
+        <output id="srv">3人分</output>
+        <button type="button" id="plus" aria-label="増やす">＋</button>
+      </div>
+    </div>
+    <p class="note-small">7月版の「2〜3人分」の分量を、3人分（大人2人＋子ども1人）として載せています。タップすると材料にチェックを付けられます。</p>
+
+    <h3>チキンマリネ液</h3>
+    <ul class="ing" id="ing-marinade"></ul>
+
+    <h3>そぼろ具材</h3>
+    <ul class="ing" id="ing-soboro"></ul>
+
+    <h3>ソース</h3>
+    <ul class="ing" id="ing-sauce"></ul>
+
+    <h3>仕上げ・盛り付け</h3>
+    <ul class="ing" id="ing-finish"></ul>
+
+    <h3>子ども用（一緒に作る場合）</h3>
+    <ul class="ing" id="ing-kid"></ul>
+  </section>
+
+  <section>
+    <h2>事前準備</h2>
+    <ol class="steps">
+      <li>
+        <span class="ttl">マリネ液を作る</span>
+        <p>アイラップ（ポリ袋）に、マリネ液の材料をすべて入れて混ぜ合わせます。</p>
+        <div class="kid-box"><b>子どもの分も一緒に作る場合</b><br>アイラップを2つ用意します。子どもの方の袋には、<strong>スパイスの代わりに塩麹</strong>を入れます。</div>
+      </li>
+      <li>
+        <span class="ttl">鶏肉を漬け込む</span>
+        <p>鶏もも肉を<strong>できる限り小さく細切れに</strong>刻み、マリネ液の袋に入れて1〜2時間ほど漬け込みます。</p>
+        <div class="kid-box">子どもの分の鶏肉は、塩麹の袋に入れて漬けます。</div>
+        <button type="button" class="timer" data-sec="3600">⏱ 1時間 タイマー</button>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>作り方</h2>
+    <ol class="steps">
+      <li>
+        <span class="ttl">野菜を炒める</span>
+        <p>フライパンにみじん切りのにんにく・玉ねぎ・人参・セロリ（あれば）を入れて<span class="q">弱火</span>で炒め始め、徐々に中火にして炒めます。</p>
+      </li>
+      <li>
+        <span class="ttl">トマトとりんごを加える</span>
+        <p>4等分にしたミニトマトと、みじん切りのりんごを加えます。<strong>トマトの水分（うま味）ごと</strong>野菜と合わせます。</p>
+      </li>
+      <li>
+        <span class="ttl">鶏肉を炒め合わせる</span>
+        <p>マリネ液に漬け込んでおいた鶏もも肉を入れて、<span class="q">汁けがなくなるまで</span>一緒に炒め合わせます。</p>
+        <div class="kid-box"><b>子どもの分は別のフライパンで</b><br>鶏肉を入れる前にそぼろ野菜を少し取り分け、別のフライパンで、塩麹に漬けた子どもの分の鶏肉と炒め合わせます。</div>
+      </li>
+      <li>
+        <span class="ttl">味見をして塩気を調える</span>
+        <p>炒め終わる直前に味見をして、<strong>塩気が足りなければ塩コショウを足します</strong>。</p>
+      </li>
+      <li>
+        <span class="ttl">盛り付ける</span>
+        <p>お皿にサラダを敷いて、ご飯とチキンを乗せ、ソースをかけます。仕上げにパクチー・レーズン・砕いたカシューナッツを散らして完成です。</p>
+        <div class="kid-box"><b>子どもの分</b>はパクチーとナッツを乗せず、ソースは少なめにします。</div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="kids">
+    <h2>2歳の子に出すときのポイント</h2>
+
+    <div class="point">
+      <b>子どもの分は塩麹で漬けて、別のフライパンで炒める</b>
+      アイラップを2つに分け、子どもの方はスパイスの代わりに塩麹で漬けます。炒めるときも別のフライパンを使えば、大人の分のスパイスが混ざりません。
+    </div>
+
+    <div class="point">
+      <b>ナッツは乗せない</b>
+      カシューナッツのような硬いナッツは、喉に詰まる危険があるので乗せないでください。消費者庁は、5歳以下の子どもには硬い豆やナッツ類を食べさせないよう呼びかけています。レーズンを乗せる場合は、細かく刻んであげてください。
+    </div>
+
+    <div class="point">
+      <b>ソースは少しだけ</b>
+      ソースには生のにんにくとマスタードが入っているので、子どもの分は小さじ1程度にしてください。
+    </div>
+  </section>
+
+
+  <footer>2026/07/21 作成 ・ 2026/11/22 更新<br><a class="back" href="/">← 献立帳にもどる</a></footer>
+</div>
+
+<script>
+  // 材料データ（基本 3人分）
+  // unit: g / tbsp / tsp / mai（枚） / ko（個） / cm / fixed（人数で変えない）
+  const BASE = 3;
+  const ING = {
+    "ing-marinade": [
+      { name: "鶏もも肉", note: "できる限り小さく刻む・ポークに変えてもOK", amt: 2, unit: "mai" },
+      { name: "ヨーグルト", amt: 5, unit: "tbsp" },
+      { name: "にんにく", note: "すりおろし", amt: 0.5, unit: "tbsp" },
+      { name: "オリーブオイル", amt: 1, unit: "tbsp" },
+      { name: "レモン汁", amt: 1, unit: "tsp" },
+      { name: "クミン", amt: 1, unit: "tsp" },
+      { name: "コリアンダー", amt: 1, unit: "tsp" },
+      { name: "パプリカパウダー", amt: 1, unit: "tsp" },
+      { name: "ターメリック", amt: 0.5, unit: "tsp" },
+      { name: "チリパウダー", note: "辛みのもと", amt: 1, unit: "tsp" },
+      { name: "オレガノ", amt: 1, unit: "tsp" },
+      { name: "塩", amt: 1, unit: "tsp" },
+      { name: "オイスターソース", amt: 1, unit: "tsp" },
+      { name: "アイラップ（ポリ袋）", note: "漬け込み用", amt: "1枚", unit: "fixed" }
+    ],
+    "ing-soboro": [
+      { name: "玉ねぎ", note: "みじん切り", amt: 0.75, unit: "ko" },
+      { name: "にんにく", note: "みじん切り", amt: "適量", unit: "fixed" },
+      { name: "人参", note: "みじん切り", amt: "適量", unit: "fixed" },
+      { name: "ミニトマト", note: "4等分に切る", amt: 6, unit: "ko", approx: true },
+      { name: "りんご", note: "みじん切り", amt: 0.25, unit: "ko" },
+      { name: "セロリ", note: "みじん切り・あればなおよし（あれば試してみたい）", amt: 4, unit: "cm", approx: true },
+      { name: "塩コショウ", note: "最後の味の調整用", amt: "適量", unit: "fixed" }
+    ],
+    "ing-sauce": [
+      { name: "ヨーグルト", amt: 2, unit: "tbsp" },
+      { name: "生クリーム", amt: 1, unit: "tbsp" },
+      { name: "マスタード", amt: 1, unit: "tsp" },
+      { name: "粉チーズ", amt: 1, unit: "tbsp" },
+      { name: "塩コショウ", amt: 0.5, unit: "tsp" },
+      { name: "にんにくチューブ", amt: 4, unit: "cm" },
+      { name: "白ワインビネガー", note: "なければ酢を小さじ1/3くらい（ほんの少しだけ）", amt: "少々", unit: "fixed" }
+    ],
+    "ing-finish": [
+      { name: "パクチー", note: "ざく切り・子どもの分には入れない", amt: "お好みで", unit: "fixed" },
+      { name: "レーズン", amt: "お好みで", unit: "fixed" },
+      { name: "カシューナッツ", note: "砕く・子どもの分には乗せない", amt: "お好みで", unit: "fixed" },
+      { name: "ご飯", amt: "お好みで", unit: "fixed" },
+      { name: "レタスなどのサラダ", amt: "お好みで", unit: "fixed" }
+    ],
+    "ing-kid": [
+      { name: "アイラップ（ポリ袋）", note: "子どもの分を漬ける用（大人用とあわせて2枚）", amt: "1枚", unit: "fixed" },
+      { name: "塩麹", note: "スパイスの代わり", amt: "小さじ1くらい", unit: "fixed" }
+    ]
+  };
+
+  // 1/4 刻みで「1と1/2」「3/4」のように表記
+  function frac(v) {
+    let r = Math.round(v * 4) / 4;
+    if (r < 0.25) r = 0.25;
+    const whole = Math.floor(r);
+    const part = { 0: "", 0.25: "1/4", 0.5: "1/2", 0.75: "3/4" }[r - whole];
+    if (whole === 0) return part;
+    return part ? `${whole}と${part}` : `${whole}`;
+  }
+
+  function fmt(item, n) {
+    if (item.unit === "fixed") return item.amt;
+    const v = item.amt * n / BASE;
+    const about = item.approx ? "ほど" : "";
+    switch (item.unit) {
+      case "tbsp": return `大さじ${frac(v)}`;
+      case "tsp": return `小さじ${frac(v)}`;
+      case "mai": return `${frac(v)}枚`;
+      case "ko": return v >= 2 ? `${Math.round(v)}個${about}` : `${frac(v)}個${about}`;
+      case "cm": return `${Math.max(1, Math.round(v))}cm${about}`;
+    }
+    return v;
+  }
+
+  let servings = BASE;
+  const out = document.getElementById("srv");
+
+  function render() {
+    out.textContent = `${servings}人分`;
+    document.getElementById("minus").disabled = servings <= 1;
+    document.getElementById("plus").disabled = servings >= 8;
+    for (const [id, list] of Object.entries(ING)) {
+      const ul = document.getElementById(id);
+      const checked = [...ul.querySelectorAll("input")].map(c => c.checked);
+      ul.innerHTML = "";
+      list.forEach((item, i) => {
+        const li = document.createElement("li");
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = !!checked[i];
+        li.classList.toggle("done", cb.checked);
+        const nm = document.createElement("span");
+        nm.className = "name";
+        nm.innerHTML = item.name
+          + (item.note ? `<br><small>${item.note}</small>` : "");
+        const am = document.createElement("span");
+        am.className = "amt";
+        am.textContent = fmt(item, servings);
+        li.append(cb, nm, am);
+        li.addEventListener("click", e => {
+          if (e.target !== cb) cb.checked = !cb.checked;
+          li.classList.toggle("done", cb.checked);
+        });
+        ul.appendChild(li);
+      });
+    }
+  }
+
+  document.getElementById("minus").onclick = () => { if (servings > 1) { servings--; render(); } };
+  document.getElementById("plus").onclick = () => { if (servings < 8) { servings++; render(); } };
+  render();
+
+  // 手順のタイトルをタップで完了マーク
+  document.querySelectorAll("ol.steps .ttl").forEach(t => {
+    t.addEventListener("click", () => t.parentElement.classList.toggle("checked"));
+  });
+
+  // タイマー
+  function mmss(s) {
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    const mm = String(m).padStart(h ? 2 : 1, "0"), ss = String(sec).padStart(2, "0");
+    return h ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
+  }
+  function beep() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      [0, 0.4, 0.8].forEach(t => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.frequency.value = 880; o.connect(g); g.connect(ctx.destination);
+        g.gain.setValueAtTime(0.25, ctx.currentTime + t);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.3);
+        o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + 0.3);
+      });
+    } catch (e) {}
+  }
+  document.querySelectorAll(".timer").forEach(btn => {
+    const total = +btn.dataset.sec;
+    const initial = btn.textContent;
+    let left = total, id = null;
+    btn.addEventListener("click", () => {
+      if (btn.classList.contains("finished")) {
+        btn.classList.remove("finished"); left = total; btn.textContent = initial; return;
+      }
+      if (id) {
+        clearInterval(id); id = null; btn.classList.remove("running");
+        btn.textContent = `⏸ ${mmss(left)}（再開）`; return;
+      }
+      btn.classList.add("running");
+      btn.textContent = `▶ ${mmss(left)}`;
+      id = setInterval(() => {
+        left--;
+        btn.textContent = `▶ ${mmss(left)}`;
+        if (left <= 0) {
+          clearInterval(id); id = null;
+          btn.classList.remove("running"); btn.classList.add("finished");
+          btn.textContent = "✓ 時間です（タップでリセット）";
+          beep();
+        }
+      }, 1000);
+    });
+  });
+</script>
+</body>
+</html>
