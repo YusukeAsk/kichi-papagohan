@@ -4,43 +4,161 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>パパごはん | kichi.page</title>
+<meta name="description" content="週末にこしらえた料理を、ひと皿ずつ置いていく場所。">
 <style>
   :root {
-    --bg: #f6f1e7;
-    --ink: #3b3226;
-    --sub: #8a7a63;
-    --line: #d9ccb6;
+    --bg: #f4efe4;          /* 生成り */
+    --card: #fbf8f1;
+    --ink: #2b2a28;
+    --sub: #857b6a;
+    --line: #ddd3c1;
+    --ai: #2f3d5e;          /* 藍 */
+    --ai-dark: #24304c;
+    --stitch: #e9e3d4;
+    --shu: #b5442f;         /* 朱 */
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #1f1b16; --ink: #ece3d3; --sub: #a8987f; --line: #3d342a; }
+    :root {
+      --bg: #1a1b20;
+      --card: #22242b;
+      --ink: #ebe5d8;
+      --sub: #a1988a;
+      --line: #383a43;
+      --ai: #4a5c86;
+      --ai-dark: #3a4a70;
+      --stitch: #d8d2c4;
+      --shu: #c9583f;
+    }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 24px 16px;
     background: var(--bg);
     color: var(--ink);
-    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
     line-height: 1.9;
-    text-align: center;
   }
-  .bowl { font-size: 48px; margin-bottom: 24px; }
-  h1 { font-size: 28px; font-weight: 500; letter-spacing: 0.2em; }
-  p { margin-top: 16px; color: var(--sub); font-size: 15px; }
-  hr { width: 40px; margin: 32px auto; border: 0; border-top: 1px solid var(--line); }
-  a { color: var(--sub); font-size: 13px; text-decoration: none; letter-spacing: 0.1em; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 56px 16px 40px; }
+
+  /* 見出し */
+  header { text-align: center; }
+  .apron { width: min(260px, 72vw); height: auto; display: block; margin: 0 auto 20px; }
+  .title { display: inline-flex; align-items: center; gap: 12px; }
+  h1 { font-size: 30px; font-weight: 500; letter-spacing: 0.22em; }
+  .seal {
+    display: inline-grid; place-items: center;
+    width: 26px; height: 26px;
+    border: 1.5px solid var(--shu); border-radius: 3px;
+    color: var(--shu); font-size: 14px; line-height: 1;
+    transform: rotate(-4deg);
+  }
+  .lead { margin-top: 14px; color: var(--sub); font-size: 15px; }
+
+  /* 献立帳 */
+  section { margin-top: 56px; }
+  h2 {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 15px; font-weight: 500; letter-spacing: 0.3em; color: var(--sub);
+  }
+  h2::before, h2::after { content: ""; flex: 1; border-top: 1px solid var(--line); }
+  .list { list-style: none; margin-top: 20px; display: grid; gap: 12px; }
+  .list a, .list .soon {
+    display: grid; grid-template-columns: 64px 1fr; gap: 4px 16px; align-items: baseline;
+    padding: 16px 18px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--ai);
+    border-radius: 4px;
+    color: inherit; text-decoration: none;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .list a:hover { transform: translateY(-2px); border-color: var(--ai); }
+  .date { grid-row: span 2; color: var(--sub); font-size: 13px; letter-spacing: 0.05em; }
+  .dish { font-size: 17px; }
+  .note { color: var(--sub); font-size: 13px; }
+  .list .soon { border-left-color: var(--line); color: var(--sub); }
+
+  footer { margin-top: 64px; text-align: center; }
+  footer a { color: var(--sub); font-size: 13px; letter-spacing: 0.12em; text-decoration: none; }
 </style>
 </head>
 <body>
-  <main>
-    <div class="bowl">🍲</div>
-    <h1>パパごはん</h1>
-    <p>週末にこしらえた料理を、<br>ひと皿ずつ置いていく場所です。</p>
-    <p>ただいま、支度中。</p>
-    <hr>
+<div class="wrap">
+
+  <header>
+    <!-- 藍色のショートエプロン -->
+    <svg class="apron" viewBox="0 0 320 200" role="img" aria-label="藍色のショートエプロン">
+      <!-- ひも -->
+      <path d="M44 70 C18 62 14 40 56 37 L196 31" fill="none" stroke="var(--ai)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M276 70 C302 62 306 46 266 44 L104 46" fill="none" stroke="var(--ai)" stroke-width="5" stroke-linecap="round"/>
+      <!-- 本体 -->
+      <path d="M40 66 L280 66 L288 152 Q160 176 32 152 Z" fill="var(--ai)"/>
+      <!-- 腰帯 -->
+      <path d="M40 66 L280 66 L281 77 L39 77 Z" fill="var(--ai-dark)"/>
+      <!-- ベルト通し -->
+      <g fill="var(--ai-dark)">
+        <rect x="72" y="61" width="6" height="18" rx="1"/>
+        <rect x="132" y="61" width="6" height="18" rx="1"/>
+        <rect x="186" y="61" width="6" height="18" rx="1"/>
+        <rect x="244" y="61" width="6" height="18" rx="1"/>
+      </g>
+      <!-- 刺し子風のステッチ -->
+      <g fill="none" stroke="var(--stitch)" stroke-width="1.4" stroke-dasharray="5 4" stroke-linecap="round" opacity=".75">
+        <path d="M38 147 Q160 170 282 147"/>
+        <path d="M44 82 L276 82"/>
+      </g>
+      <!-- 中央の段ポケット -->
+      <g fill="none" stroke="var(--ai-dark)" stroke-width="2">
+        <path d="M108 96 L108 160"/>
+        <path d="M212 96 L212 160"/>
+        <path d="M108 96 L212 96"/>
+        <path d="M108 118 L212 118"/>
+        <path d="M108 140 L212 140"/>
+      </g>
+      <g fill="none" stroke="var(--stitch)" stroke-width="1.1" stroke-dasharray="3 3" opacity=".6">
+        <path d="M111 99 L209 99"/>
+        <path d="M111 121 L209 121"/>
+        <path d="M111 143 L209 143"/>
+      </g>
+      <!-- ペン差し -->
+      <rect x="114" y="84" width="38" height="8" rx="1.5" fill="none" stroke="var(--ai-dark)" stroke-width="2"/>
+      <!-- 小さなタグ -->
+      <rect x="226" y="86" width="5" height="11" rx="1" fill="var(--stitch)" opacity=".85"/>
+    </svg>
+
+    <div class="title">
+      <h1>パパごはん</h1>
+      <span class="seal" aria-hidden="true">飯</span>
+    </div>
+    <p class="lead">週末にこしらえた料理を、<br>ひと皿ずつ置いていく場所です。</p>
+  </header>
+
+  <section>
+    <h2>献立帳</h2>
+    <ul class="list">
+      <!--
+        料理を増やすときは、この形の行を一番上に足していきます。
+        <li>
+          <a href="recipes/chicken-over-rice.html">
+            <span class="date">11.29</span>
+            <span class="dish">チキンオーバーライス</span>
+            <span class="note">野菜そぼろが決め手の、週末のごちそう</span>
+          </a>
+        </li>
+      -->
+      <li>
+        <div class="soon">
+          <span class="date">—</span>
+          <span class="dish">最初のひと皿</span>
+          <span class="note">ただいま、支度中。</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
     <a href="https://kichi.page">kichi.page</a>
-  </main>
+  </footer>
+
+</div>
 </body>
 </html>
