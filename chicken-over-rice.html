@@ -149,14 +149,19 @@
   }
 
   /* パパごはんへの帰り道 */
-  .back { display: inline-block; margin-bottom: 20px; color: var(--sub); font-size: 13px; text-decoration: none; letter-spacing: .05em; }
-  .back:hover { color: var(--ink); }
-  footer .back { margin: 12px 0 0; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 20px; padding: 8px 18px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 99px;
+    color: var(--ink); font-size: 14px; text-decoration: none; letter-spacing: .05em;
+  }
+  .back:hover { border-color: var(--sub); }
+  footer .back { margin: 16px 0 0; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="/">← パパごはん</a>
+  <a class="back" href="/">← 献立帳にもどる</a>
 
   <header>
     <div class="tag">スパイシー ・ 漬け込み1〜2時間＋調理30分</div>
