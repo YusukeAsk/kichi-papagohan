@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>パパごはん | kichi.page</title>
-<meta name="description" content="週末にこしらえた料理を、ひと皿ずつ置いていく場所。">
+<meta name="description" content="週に一度、家族に作る料理。">
 <style>
   :root {
     --bg: #f4efe4;          /* 生成り */
@@ -62,7 +62,7 @@
   h2::before, h2::after { content: ""; flex: 1; border-top: 1px solid var(--line); }
   .list { list-style: none; margin-top: 20px; display: grid; gap: 12px; }
   .list a, .list .soon {
-    display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; align-items: baseline;
+    display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; align-items: center;
     padding: 16px 18px;
     background: var(--card);
     border: 1px solid var(--line);
@@ -72,10 +72,9 @@
     transition: transform .15s ease, border-color .15s ease;
   }
   .list a:hover { transform: translateY(-2px); border-color: var(--ai); }
-  .date { grid-row: span 2; color: var(--sub); font-size: 13px; letter-spacing: 0.05em; }
+  .date { color: var(--sub); font-size: 13px; letter-spacing: 0.05em; }
   .date small { display: block; font-size: 11px; line-height: 1.4; opacity: .8; }
   .dish { font-size: 16px; line-height: 1.55; }
-  .note { color: var(--sub); font-size: 13px; line-height: 1.6; }
   .list .soon { border-left-color: var(--line); color: var(--sub); }
 
 </style>
@@ -128,7 +127,7 @@
       <h1>パパごはん</h1>
       <span class="seal" aria-hidden="true">飯</span>
     </div>
-    <p class="lead">週末にこしらえた料理を、<br>ひと皿ずつ置いていく場所です。</p>
+    <p class="lead">週に一度、家族に作る料理。</p>
   </header>
 
   <section>
@@ -140,7 +139,6 @@
           <a href="ファイル名.html">
             <span class="date"><small>2026</small>11.29</span>
             <span class="dish">料理の名前</span>
-            <span class="note">ひとことの説明</span>
           </a>
         </li>
       -->
@@ -148,21 +146,18 @@
         <a href="miso-teriyaki-don.html">
           <span class="date"><small>2026</small>11.14</span>
           <span class="dish">鶏ももの塩麹味噌照り焼き丼</span>
-          <span class="note">塩麹でやわらかく、甘い味噌だれで</span>
         </a>
       </li>
       <li>
         <a href="renkon-tsumire-don.html">
           <span class="date"><small>2026</small>11.08</span>
           <span class="dish">シャキシャキれんこんとコーンの鶏つみれ丼</span>
-          <span class="note">豆腐入りでふんわり。タレはあとがけで</span>
         </a>
       </li>
       <li>
         <a href="chicken-over-rice.html">
           <span class="date"><small>2026</small>07.21</span>
           <span class="dish">チキンオーバーライス</span>
-          <span class="note">細かく刻んだ野菜そぼろが決め手</span>
         </a>
       </li>
     </ul>
